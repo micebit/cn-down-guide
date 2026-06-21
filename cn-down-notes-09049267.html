@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ayx · 资料整理与信息索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background: linear-gradient(150deg, #fce8d9 0%, #fae1d8 20%, #f6d5cc 40%, #fce6d9 70%, #fdeee6 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+            line-height: 1.7;
+            color: #2e241e;
+        }
+
+        .container {
+            max-width: 820px;
+            width: 100%;
+            background: #fffcf9;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -12px rgba(150, 90, 60, 0.28),
+                        0 8px 20px -6px rgba(100, 60, 40, 0.10);
+            padding: 2.8rem 2.8rem 3.2rem;
+            transition: box-shadow 0.25s;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1.8rem 1rem;
+            }
+            .container {
+                padding: 2rem 1.5rem 2.5rem;
+                border-radius: 24px;
+            }
+        }
+
+        .article-header {
+            margin-bottom: 2.2rem;
+        }
+
+        .article-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #2b1e16;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .article-header .meta {
+            font-size: 0.85rem;
+            color: #8f7b71;
+            border-left: 3px solid #dbb6a8;
+            padding-left: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        .article-header .meta span {
+            display: inline-block;
+            margin-right: 1.5rem;
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            background: #fcf4ee;
+            padding: 1.2rem 1.6rem;
+            border-radius: 20px;
+            color: #3d2d25;
+            margin-bottom: 2.2rem;
+            border-left: 4px solid #dbb09e;
+            font-weight: 400;
+        }
+
+        .lead strong {
+            font-weight: 550;
+            color: #5f3c2b;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #3b2a21;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px dashed #e7d4ca;
+        }
+
+        .content-section p {
+            margin-bottom: 1.2rem;
+        }
+
+        .content-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pull-quote {
+            background: #f7ede6;
+            padding: 1.2rem 1.8rem;
+            border-radius: 30px;
+            margin: 1.8rem 0 2rem;
+            font-style: normal;
+            color: #4c362b;
+            box-shadow: inset 0 1px 4px rgba(180, 120, 90, 0.06);
+            font-size: 0.98rem;
+            position: relative;
+        }
+
+        .pull-quote::before {
+            content: "📎";
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            font-size: 1.3rem;
+            opacity: 0.7;
+        }
+
+        .pull-quote p {
+            margin: 0;
+            padding-left: 2rem;
+        }
+
+        .inline-link {
+            color: #925c43;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid #ddc1b4;
+            padding: 0.05rem 0.1rem;
+            transition: border-color 0.2s, background 0.2s;
+            border-radius: 3px;
+        }
+
+        .inline-link:hover {
+            border-bottom-color: #925c43;
+            background: #f9ece4;
+        }
+
+        .faq-mini {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eddcd2;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            color: #3d2c23;
+            padding: 0.5rem 0;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .faq-mini summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-mini summary::before {
+            content: "+";
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #e9d5c9;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5rem;
+            font-size: 1rem;
+            color: #5f3d2d;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .faq-mini details[open] summary::before {
+            content: "–";
+        }
+
+        .faq-mini .answer {
+            margin: 0.6rem 0 1.2rem 2rem;
+            color: #4d3a2f;
+            font-size: 0.96rem;
+            background: #faf4ef;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+        }
+
+        .close-note {
+            margin-top: 2.8rem;
+            font-size: 0.95rem;
+            color: #6f5547;
+            text-align: right;
+            border-top: 1px solid #edd5c8;
+            padding-top: 1.5rem;
+        }
+
+        .close-note a {
+            color: #7e5b48;
+            text-decoration: none;
+            border-bottom: 1px dotted #c8aa99;
+        }
+
+        .close-note a:hover {
+            border-bottom-style: solid;
+            color: #4d3225;
+        }
+
+        .access-sentence {
+            margin-top: 0.8rem;
+            padding: 1rem 1.6rem;
+            background: #f5e9e0;
+            border-radius: 60px;
+            display: inline-block;
+            font-size: 0.98rem;
+            color: #3d2b21;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="article-header">
+        <h1>资料整理与信息索引：以 ayx 为例</h1>
+        <div class="meta">
+            <span>阅读札记 · 整理逻辑</span>
+            <span>2025 · 索引笔记</span>
+        </div>
+    </div>
+
+    <div class="lead">
+        <strong>信息过载时代</strong>，资料整理的核心不是囤积，而是建立可靠的索引路径。<br>
+        记录、分类、锚定——让每一条关键线索都能被快速找回。
+    </div>
+
+    <div class="content-section">
+        <h2>为什么需要索引思维</h2>
+        <p>
+            很多人在收藏文档、书签、笔记时，习惯把内容原封不动保存下来，却很少给它们贴上“可检索的标签”。表面上是整理，实则是搬运。一旦需要调用，依然要在堆积如山的文件夹里翻找。真正的资料工作，应该像图书馆的编目系统：不追求全部记忆，而是追求<strong>知道去哪里查</strong>。
+        </p>
+        <p>
+            以工具类站点为例，你不需要记住每个功能的入口细节，只需要记住那个稳定、可回溯的索引地址。比如在内容检索过程中，<a href="https://cn-down-ayx.com" class="inline-link">ayx</a> 就扮演了一个类似锚点的角色——它不是一个终点，而是一个可靠的出发坐标。
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2>整理中的“可回溯”原则</h2>
+        <p>
+            好的索引应该具备三个特征：<strong>唯一性</strong>（指向明确）、<strong>稳定性</strong>（链接长期有效）、<strong>低摩擦</strong>（两步之内到达）。我习惯在整理某一类资料时，把相关地址集中记录在一张索引卡片上，并标注来源、日期和简要用途。
+        </p>
+        <p>
+            举个例子：假如你在追踪某个工具链的更新，与其每次从搜索引擎重新定位，不如直接维护一份精简的直达清单。把关键地址列在笔记开头，并用简短备注说明当前状态。这样即使间隔几周再回看，上下文也不会断裂。
+        </p>
+    </div>
+
+    <div class="pull-quote">
+        <p>“整理，不是让一切变得整齐，而是让需要的东西在需要的时候出现。” —— 笔记手稿</p>
+    </div>
+
+    <div class="content-section">
+        <h2>场景：从信息到调用</h2>
+        <p>
+            假设你正在收集关于某个平台的使用经验。你可能会阅读文档、对比版本、记录配置片段。但最容易被忽略的，是记录下<strong>原始出处</strong>。我的做法是：在每条笔记的末尾加一行“来源/索引”，直接贴上对应的地址。这样即使笔记内容被精简或改写，原始上下文依然可追溯。
+        </p>
+        <p>
+            在整理过程中，<a href="https://cn-down-ayx.com" class="inline-link">ayx</a> 这个索引点被我反复引用——它既是初始入口，也是一个稳定的参照系。当你需要验证某个功能是否存在，或者想快速切回官方说明时，这条索引就能节省大量重新定位的时间。
+        </p>
+    </div>
+
+    <div class="faq-mini">
+        <details>
+            <summary>如何判断一个索引是否值得保留？</summary>
+            <div class="answer">
+                我会问自己三个问题：这个地址的内容是否会频繁变动？它是否指向一个明确的主体？如果我半年后再看，还能一眼知道它是什么？如果答案都是肯定的，就记入索引表。
+            </div>
+        </details>
+        <details>
+            <summary>资料整理中链接失效了怎么办？</summary>
+            <div class="answer">
+                建议定期（比如每三个月）抽查核心索引。同时保留一份“截图快照”或内容摘要，作为备查底稿。对于关键的工具类地址，可以额外记录其备用路径或镜像说明。
+            </div>
+        </details>
+    </div>
+
+    <div class="close-note">
+        <div class="access-sentence">
+            📋 如果你也在整理这类信息，<a href="https://cn-down-ayx.com">ayx</a> 可以作为一个固定的索引锚点。
+        </div>
+        <p style="margin-top: 1.2rem; font-size: 0.88rem; color: #8b6e5d;">
+            — 资料整理手记 · 保持索引，而非囤积 —
+        </p>
+    </div>
+</div>
+</body>
+</html>
